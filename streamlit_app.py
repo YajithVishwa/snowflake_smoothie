@@ -1,5 +1,7 @@
 # Import python packages
 import streamlit as st
+import requests
+
 
 # Write directly to the app
 st.title("Customize Your Smoothie :cup_with_straw:")
@@ -15,6 +17,10 @@ my_dataframe = session.table("smoothies.public.fruit_options").select('FRUIT_NAM
 #st.dataframe(data=my_dataframe, use_container_width=True)
 
 ing_list = st.multiselect('Choose up to 5 ing', my_dataframe, max_selections=5)
+
+fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
+#st.text(fruityvice_response)
+fv_df = st.dataframe(data=fruityvice_response.json(), use_container_width=True)
 
 if ing_list:
     ingredients_string = ', '.join(ing_list)
