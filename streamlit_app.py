@@ -18,12 +18,13 @@ my_dataframe = session.table("smoothies.public.fruit_options").select('FRUIT_NAM
 
 ing_list = st.multiselect('Choose up to 5 ing', my_dataframe, max_selections=5)
 
-fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
-#st.text(fruityvice_response)
-fv_df = st.dataframe(data=fruityvice_response.json(), use_container_width=True)
-
 if ing_list:
     ingredients_string = ', '.join(ing_list)
+    for fruit in ing_list:
+        st.write('Nut Info' + ing_list)
+        fruityvice_response = requests.get("https://fruityvice.com/api/fruit/"+fruit)
+        #st.text(fruityvice_response)
+        fv_df = st.dataframe(data=fruityvice_response.json(), use_container_width=True)
     my_insert_stmt = """ insert into smoothies.public.orders(ingredients, name_on_order)
             values ('""" + ingredients_string + """', '""" + order_name + """')"""
     if st.button("Submit"):
