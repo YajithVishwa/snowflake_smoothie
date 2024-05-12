@@ -21,7 +21,7 @@ ing_list = st.multiselect('Choose up to 5 ing', my_dataframe, max_selections=5)
 if ing_list:
     ingredients_string = ', '.join(ing_list)
     for fruit in ing_list:
-        st.write('Nut Info' + ing_list)
+        st.write('Nut Info - ' + fruit)
         fruityvice_response = requests.get("https://fruityvice.com/api/fruit/"+fruit)
         #st.text(fruityvice_response)
         fv_df = st.dataframe(data=fruityvice_response.json(), use_container_width=True)
